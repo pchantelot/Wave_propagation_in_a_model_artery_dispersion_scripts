@@ -11,7 +11,7 @@ This work extends the codes developed in:
 
 ## Usage
 1. Download the repository.
-2. Install the following [Julia](https://github.com/JuliaLang) packages: `LinearAlgebra`, `ToeplitzMatrices`, `Kronecker`,`NonlinearEigenproblems`, and `CairoMakie`. 
+2. Install the following [Julia](https://github.com/JuliaLang) packages: `FileIO`, `LinearAlgebra`, `ToeplitzMatrices`, `Kronecker`,`NonlinearEigenproblems`, and `CairoMakie`. 
 3. Add the repository path to your `LOAD_PATH` by editing the line `path_to_repository` in each script.
 4. Execute the desired script, *e.g.* `Tube_elastic.jl`.
 
@@ -40,13 +40,13 @@ After inserting a propagative displacement ansatz, the dispersion relation is gi
 We detail below how to obtain these non-zero solutions using the spectral collocation method that relies on discretizing the cross-section of the waveguide, transforming the boundary value problem into an polynomial eigenvalue problem.
 This method has already been presented for plates[^1] and strips with a rectangular cross-section [^2]. We focus here on its implementation in cylindrical coordinates for tubes and curved strips, as well as on the implementation of fluid coupling.
 
-We recall that in cylindrical coordinates $\boldsymbol{\nabla} = \boldsymbol{e}_x \partial_x + \boldsymbol{e}_r \partial_r  + \boldsymbol{e}_\theta \frac{1}{r} \partial_\theta$, so that,
+We recall that in cylindrical coordinates $` \boldsymbol{\nabla} = \boldsymbol{e}_x \partial_x + \boldsymbol{e}_r \partial_r  + \boldsymbol{e}_\theta \frac{1}{r} \partial_\theta `$, so that,
 ```math
     \boldsymbol{\nabla u} = \boldsymbol{e}_x \partial_x \otimes \boldsymbol{u} + \boldsymbol{e}_r \partial_r \otimes \boldsymbol{u} + \boldsymbol{e}_\theta \frac{1}{r} \otimes \boldsymbol{A} \cdot \boldsymbol{u}, \tag{2}
 ```
-where $\boldsymbol{A} = \boldsymbol{I}\partial_\theta + \boldsymbol{e}_\theta \otimes \boldsymbol{e}_r - \boldsymbol{e}_r \otimes \boldsymbol{e}_\theta$ with $\boldsymbol{I}$ the three-dimensional identity tensor.
+where $`\boldsymbol{A} = \boldsymbol{I}\partial_\theta + \boldsymbol{e}_\theta \otimes \boldsymbol{e}_r - \boldsymbol{e}_r \otimes \boldsymbol{e}_\theta `$ with $`\boldsymbol{I} `$ the three-dimensional identity tensor.
 > [!NOTE]
-> The convention used in equation (2), that reads in Cartesian coordinates $\boldsymbol{\nabla u} = u_{i,j} \, \boldsymbol{e}_j \otimes \boldsymbol{e}_i$ matches our implementation of the gradient. In many textbooks, the gradient of the vector field is defined as $\boldsymbol{\nabla u} = u_{j,i} \, \boldsymbol{e}_j \otimes \boldsymbol{e}_i$.
+> The convention used in equation (2), that reads in Cartesian coordinates $` \boldsymbol{\nabla u} = u_{i,j} \, \boldsymbol{e}_j \otimes \boldsymbol{e}_i `$ matches our implementation of the gradient. In many textbooks, the gradient of the vector field is defined as $`\boldsymbol{\nabla u} = u_{j,i} \, \boldsymbol{e}_j \otimes \boldsymbol{e}_i `$.
 
 ### Tube
 We consider a tube with mean radius $R$ and thickness $h$.
@@ -64,7 +64,7 @@ Inserting $(3)$ in $(1)$, we get,
 \end{split} 
 \tag{4}
 ```
-where $\boldsymbol{c}_{ij} = \boldsymbol{e}_i \cdot \boldsymbol{C} \cdot \boldsymbol{e}_j$ and $\boldsymbol{A}$ now reads $\boldsymbol{A} = i m \boldsymbol{I} + \boldsymbol{e}_\theta \otimes \boldsymbol{e}_r - \boldsymbol{e}_r \otimes \boldsymbol{e}_\theta$.
+where $`\boldsymbol{c}_{ij} = \boldsymbol{e}_i \cdot \boldsymbol{C} \cdot \boldsymbol{e}_j `$ and $`\boldsymbol{A} `$ now reads $` \boldsymbol{A} = i m \boldsymbol{I} + \boldsymbol{e}_\theta \otimes \boldsymbol{e}_r - \boldsymbol{e}_r \otimes \boldsymbol{e}_\theta `$.
 
 The elastodynamics equation is complemented by boundary conditions at $r = R - h/2$ and $r = R + h/2$. Here, we describe the case of a tube in vacuum where we impose homogeneous Neumann boundary conditions,
 ```math
@@ -215,7 +215,7 @@ Inserting this ansatz in equation (1) still yields equation (4),
      \left. \boldsymbol{c}_{rr} \partial^2_r + \frac{1}{r} \left(\boldsymbol{c}_{rr} + \boldsymbol{c}_{r\theta} \cdot \boldsymbol{A} + \boldsymbol{A} \cdot \boldsymbol{c}_{\theta r} \right) \partial_r + \frac{1}{r^2} \boldsymbol{A} \cdot \boldsymbol{c}_{\theta\theta} \cdot \boldsymbol{A}  + \rho \omega^2 \boldsymbol{I}\right] \cdot \boldsymbol{u} &= 0,
      \end{split} 
 ```
-but this time the matrix $\boldsymbol{A}$ still involves an azimuthal derivative as $\boldsymbol{A} = \boldsymbol{I}\partial_\theta + \boldsymbol{e}_\theta \otimes \boldsymbol{e}_r - \boldsymbol{e}_r \otimes \boldsymbol{e}_\theta$.
+but this time the matrix $\boldsymbol{A}$ still involves an azimuthal derivative as $`\boldsymbol{A} = \boldsymbol{I}\partial_\theta + \boldsymbol{e}_\theta \otimes \boldsymbol{e}_r - \boldsymbol{e}_r \otimes \boldsymbol{e}_\theta `$.
 
 Boundary conditions are required at $r = R \pm h/2$ and at $\theta = \pm w/(2R)$. 
 We show here the case of a strip clamped on its lateral edges in vacuum,
@@ -245,7 +245,7 @@ with,
     &B_k = \boldsymbol{c}_{rx} \otimes I_{NP}, \quad B_0 = \boldsymbol{c}_{rr} \otimes I_P \otimes D_r + (\boldsymbol{c}_{r\theta} \otimes D_\theta + \boldsymbol{c}_{r\theta}A \otimes I_P) \otimes R_N^{-1},
 \end{aligned}
 ```
-where $A = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix}$,
+where $` A = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix} `$,
 
 and all the matrices of the discretized polynomial eigenvalue problem are of size $3NP \times 3NP$.
 
@@ -263,8 +263,8 @@ We introduce an approximate boundary condition that reads,
 ```math
     \left.\boldsymbol{e}_r \cdot \boldsymbol{C} : \boldsymbol{\nabla u}\right|_{r = R + h/2} = \rho_f \omega^2 \frac{\boldsymbol{u}\cdot \boldsymbol{e}_r}{i\boldsymbol{k}_f\cdot\boldsymbol{e}_r}, \tag{21}
 ```
-where we used the continuity of the normal displacement at the interface, and where $\boldsymbol{k}_f$ is the wavector of an inhomogeneous plane wave radiated into the fluid. 
-We further simplify this boundary condition by considering that only evanescent waves propagate in the fluid, and by neglecting the transverse wavenumber in the $\boldsymbol{e}_\theta$ direction. Under these assumptions, the approximate boundary condition at $r=R+h/2$ can be discretized as,
+where we used the continuity of the normal displacement at the interface, and where $`\boldsymbol{k}_f `$ is the wavevector of an inhomogeneous plane wave radiated into the fluid. 
+We further simplify this boundary condition by considering that only evanescent waves propagate in the fluid, and by neglecting the transverse wavenumber in the $` \boldsymbol{e}_\theta `$ direction. Under these assumptions, the approximate boundary condition at $r=R+h/2$ can be discretized as,
 ```math
     \left[(ik_x)^2 B_k + ik_x B_0 + i\rho_f \omega^2 \boldsymbol{I}e_r^T \otimes I_{NP} \right] \cdot \boldsymbol{u} = 0. \tag{22}
 ```
