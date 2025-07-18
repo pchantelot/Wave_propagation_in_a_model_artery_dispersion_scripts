@@ -1,5 +1,5 @@
 # Post-processing functions for SCM
-using POnG
+using .POnG
 
 """
 	modedirection(p::result1D)

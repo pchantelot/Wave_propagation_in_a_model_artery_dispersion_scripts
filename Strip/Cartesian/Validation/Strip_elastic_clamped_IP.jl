@@ -6,9 +6,8 @@ using FileIO
 # Plotting 
 using CairoMakie
 # POnG
-path_to_repository = "Documents/GitHub/Wave_propagation_in_a_model_artery_dispersion_scripts/"
-push!(LOAD_PATH,joinpath(pwd(),path_to_repository))
-using POnG
+include("../../../POnG.jl")
+using .POnG
 
 ## Problem definition: We look for Lamb waves propagating in direction 1 in a strip with 
 #height h and width w in vaccuum.

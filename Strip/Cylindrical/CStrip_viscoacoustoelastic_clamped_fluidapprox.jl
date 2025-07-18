@@ -3,9 +3,8 @@
 # Easy identity matrix and kronecker tensor notation
 using LinearAlgebra, Kronecker
 # POnG
-path_to_repository = "Documents/GitHub/Wave_propagation_in_a_model_artery_dispersion_scripts/"
-push!(LOAD_PATH,joinpath(pwd(),path_to_repository))
-using POnG
+include("../../POnG.jl")
+using .POnG
 # Plotting 
 using CairoMakie
 

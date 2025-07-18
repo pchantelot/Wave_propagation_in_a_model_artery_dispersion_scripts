@@ -11,9 +11,8 @@ This work extends the codes developed in:
 
 ## Usage
 1. Download the repository.
-2. Install the following [Julia](https://github.com/JuliaLang) packages: `FileIO`, `LinearAlgebra`, `ToeplitzMatrices`, `Kronecker`,`NonlinearEigenproblems`, and `CairoMakie`. 
-3. Add the repository path to your `LOAD_PATH` by editing the line `path_to_repository` in each script.
-4. Execute the desired script, *e.g.* `Tube_elastic.jl`.
+2. Install the following [Julia](https://github.com/JuliaLang) packages: `FileIO`, `SpecialFunctions`, `LinearAlgebra`, `ToeplitzMatrices`, `Kronecker`,`NonlinearEigenproblems`, and `CairoMakie`. 
+3. Execute the desired script, *e.g.* `Tube_elastic.jl`.
 
 We include scripts to compute the dispersion relation in the following cases:
 - elastic tube in vacuum, `Tube_elastic.jl`.

@@ -1,15 +1,13 @@
 # Validate approximations to compute guided waves in curved clamped elastic strips
 # POnG
-path_to_repository = "Documents/GitHub/Wave_propagation_in_a_model_artery_dispersion_scripts/"
-push!(LOAD_PATH,joinpath(pwd(),path_to_repository))
-using POnG
+include("../../../../POnG.jl")
+using .POnG
 using CairoMakie
-using FileIO, UnPack, MAT, NaturalSort
+using FileIO
 
 # Load Data
-reffilenames = filter(x -> occursin(".mat", x), readdir(joinpath(@__DIR__,"Comsol")))
+reffilenames = filter(x -> occursin(".jld2", x), readdir(joinpath(@__DIR__,"Comsol")))
 filenames = filter(x -> occursin(".jld2", x), readdir(@__DIR__))
-filenames = sort(filenames, lt = natural)
 
 with_theme(theme_latexfonts()) do
     fig = Figure(size = (2 * 1.2 * 360,360))
@@ -24,9 +22,8 @@ with_theme(theme_latexfonts()) do
 
         for name in filenames
             Data = load(joinpath(@__DIR__,name))
-            @unpack data = Data
-            k = data.k
-            f = data.ω
+            k = Data["k"]
+            f = Data["ω"]
             filter!(!isnan, k)
             filter!(!isnan, f)
             A = unique(f)
@@ -39,11 +36,10 @@ with_theme(theme_latexfonts()) do
         end
 
         for name in reffilenames
-            Data = matread(joinpath(@__DIR__,"Comsol",name))
-            @unpack k, eigenfreq, strip = Data
-            k = dropdims(real.(k); dims = 1)
-            lines!(ax, k, imag(eigenfreq[:,1])./2 ./ pi, linestyle = :solid,
-            label = string("1/κ = ", strip["courbure"]," m"))
+            Data = load(joinpath(@__DIR__,"Comsol",name))
+            k = real.(Data["k"])
+            lines!(ax, k, imag(Data["eigenfreq"][:,1])./2 ./ pi, linestyle = :solid,
+            label = string("1/κ = ", Data["strip"]["courbure"]," m"))
         end
 
         fig[1,2] = Legend(fig,ax,"Comsol")
