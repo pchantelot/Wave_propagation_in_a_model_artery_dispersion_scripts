@@ -1,7 +1,7 @@
 # Wave propagation in a model artery: dispersion scripts [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16037558.svg)](https://doi.org/10.5281/zenodo.16037558)
 
 This repository contains the scripts used to compute the dispersion relation of axial guided elastic waves in infinite tubes and (curved) strips reported in:
-> P. Chantelot, A. Delory, C. Prada, and F. Lemoult, Wave propagation in a model artery, *ArXiv:xx* (2025).
+> P. Chantelot, A. Delory, C. Prada, and F. Lemoult, Wave propagation in a model artery, [10.48550/arXiv.2507.17698](https://doi.org/10.48550/arXiv.2507.17698) (2025).
 
 We provide elasticity tensors to obtain the dispersion curves for elastic media (described by their Lamé parameters $\lambda$ and $\mu$) and for almost incompressible viscoelastic media subjected to an homogeneous finite deformation, which we account for using a Mooney-Rivlin model and a fractional Kelvin-Voigt model, within the acoustoelastic framework.
 
